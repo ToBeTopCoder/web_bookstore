@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>web_bookstore</display-name>
+  
+  <filter>
+  	<filter-name>encodingFilter</filter-name>
+  	<filter-class>web.filter.EncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>encodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 
+  <filter>
+  	<filter-name>adminPrivateFilter</filter-name>
+  	<filter-class>web.filter.AdminPrivateFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>adminPrivateFilter</filter-name>
+  	<url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+   -->
+  
+</web-app>
