@@ -1,4 +1,4 @@
-package admin;
+package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import dao.User;
 import dao.UserDao;
 
-@WebServlet(name="AdminServlet", urlPatterns={"/AdminServlet"})
-public class AdminServlet extends HttpServlet {
+@WebServlet(name="LoginServlet", urlPatterns={"/LoginServlet"})
+public class LoginServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.sendRedirect(request.getContextPath() + "/admin/login.jsp");
+		response.sendRedirect(request.getContextPath() + "/client/login.jsp");
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -24,21 +24,27 @@ public class AdminServlet extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
 		UserDao userDao = new UserDao();
+		
 		User user = userDao.getUserByName(username);
 		if (user == null) {
-			out.println("大爷请回，您不是管理员！2秒后跳转到登录页面");
+			out.println("大爷好，您当前还未注册，2秒后调到注册页面");
 			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/register.jsp");
 			return;
 		}
 		
-		if (!password.equals(user.getPassword())) {
-			out.println("密码貌似错了，2秒后跳转到管理员登录页面");
-			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/admin/login.jsp");
+		if (user.getIsAdmin() != 0) {
+			// 管理员
+			request.getRequestDispatcher("/AdminServlet").forward(request, response);
 			return;
 		}
 		
-		response.addHeader("refresh", "0;url=" + request.getContextPath() + "/admin/index.jsp");
+		// 普通会员
+		if (!password.equals(user.getPassword())) {
+			out.println("密码貌似错了，2秒后跳转到会员登录页面");
+			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/login.jsp");
+			return;
+		}
+		out.println("您好 " + username);
 	}
 }

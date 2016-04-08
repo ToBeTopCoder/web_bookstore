@@ -43,7 +43,7 @@
 
 <body style="text-align: center">
 	<div class="text_right" >
-		<a href="${pageContext.request.contextPath}/client/register.jsp">注册</a>
+		<a href="${pageContext.request.contextPath}/client/login.jsp">登录</a>
 		<a href="${pageContext.request.contextPath}/admin/login.jsp">管理员登录</a>
 	</div>
 	<h4>新会员注册</h4>

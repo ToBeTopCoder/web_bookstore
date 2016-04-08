@@ -19,7 +19,7 @@
 		<a href="${pageContext.request.contextPath}/admin/login.jsp">管理员登录</a>
 	</div>
 	<h4 style="text-align: center">欢迎来到 store</h4>
-	<form action="" method="post" style="text-align: center">
+	<form action="${pageContext.request.contextPath}/LoginServlet" method="post" style="text-align: center">
 		用户名:<input type="text" name="username"/> <br/>
 		密&nbsp;码:<input type="password" name="password"/> <br/>
 		&nbsp;&nbsp;<input type="submit" value="登录"/>&nbsp;
