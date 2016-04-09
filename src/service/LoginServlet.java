@@ -46,5 +46,6 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		out.println("您好 " + username);
+		out.println("个人说明 " + user.getIntroduce());
 	}
 }

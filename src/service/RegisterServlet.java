@@ -45,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
 		user.setPhone(telephone);
 		user.setIntroduce(introduce);
 		
-		userDao.inserUser(user);
+		userDao.insertUser(user);
 		out.println("注册成功，2秒后跳转到登录页面");
 		response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/login.jsp");
 	}

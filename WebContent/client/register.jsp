@@ -31,7 +31,7 @@
 				return false;
 			}
 			if (repassword == null || repassword  == "" || repassword != password) {
-				alert("密码和重复密码不一致" + password + " " + repassword);
+				alert("密码和重复密码不一致");
 				return false;
 			}
 		}

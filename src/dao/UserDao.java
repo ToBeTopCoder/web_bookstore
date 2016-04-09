@@ -13,7 +13,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 public class UserDao {
 	public static DataSource ds = null;
 	
-	public void inserUser(User user) {
+	public void insertUser(User user) {
 		if (user == null) {
 			return;
 		}
@@ -58,14 +58,14 @@ public class UserDao {
 			ResultSet resultSet= statement.executeQuery("select * from users where username='" + username + "'");
 			if (resultSet.next()) {
 				user = new User();
-				user.setId(Integer.parseInt(resultSet.getString("id")));
+				user.setId(resultSet.getInt("id"));
 				user.setUsername(resultSet.getString("username"));
 				user.setPassword(resultSet.getString("password"));
 				user.setEmail(resultSet.getString("email"));
-				user.setSex(Integer.parseInt(resultSet.getString("sex")));
+				user.setSex(resultSet.getInt("sex"));
 				user.setPhone(resultSet.getString("phone"));
 				user.setIntroduce(resultSet.getString("introduce"));
-				user.setIsAdmin(Integer.parseInt(resultSet.getString("is_admin")));
+				user.setIsAdmin(resultSet.getInt("is_admin"));
 			}
 			resultSet.close();
 			statement.close();
@@ -92,14 +92,15 @@ public class UserDao {
 			Statement statement = (Statement) connection.createStatement();
 			ResultSet resultSet= statement.executeQuery("select * from users whereis name=" + id);
 			while (resultSet.next()) {
-				user.setId(Integer.parseInt(resultSet.getString("id")));
+				user = new User();
+				user.setId(resultSet.getInt("id"));
 				user.setUsername(resultSet.getString("username"));
 				user.setPassword(resultSet.getString("password"));
 				user.setEmail(resultSet.getString("email"));
-				user.setSex(Integer.parseInt(resultSet.getString("sex")));
+				user.setSex(resultSet.getInt("sex"));
 				user.setPhone(resultSet.getString("phone"));
 				user.setIntroduce(resultSet.getString("introduce"));
-				user.setIsAdmin(Integer.parseInt(resultSet.getString("is_admin")));
+				user.setIsAdmin(resultSet.getInt("is_admin"));
 			}
 			resultSet.close();
 			statement.close();

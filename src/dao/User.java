@@ -1,13 +1,17 @@
 package dao;
 
+/*
+ * 用户类
+ * @notice 用户名在数据表中是唯一的
+ */
 public class User {
 	public final int MAN = 0;
 	public final int WOMAN = 1;
 	
-	private int id;
-	private String username;
-	private String password;
-	private String email;
+	private int id;				// not null
+	private String username;	// not null
+	private String password;	// not null
+	private String email;		// not null
 	private int sex;
 	private String phone;
 	private String introduce;
