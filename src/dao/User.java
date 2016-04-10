@@ -5,8 +5,8 @@ package dao;
  * @notice 用户名在数据表中是唯一的
  */
 public class User {
-	public final int MAN = 0;
-	public final int WOMAN = 1;
+	public final static int MAN = 0;
+	public final static int WOMAN = 1;
 	
 	private int id;				// not null
 	private String username;	// not null

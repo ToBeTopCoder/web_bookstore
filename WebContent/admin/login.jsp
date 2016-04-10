@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<style type="text/css">
+	<style type="text/css">
 		.text_right {
 			text-align: right;
 			color: blue;

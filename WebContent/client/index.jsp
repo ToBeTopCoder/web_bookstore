@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Insert title here</title>
+	<title>会员页面 - bookstore</title>
 </head>
 <body>
 	<h4>你好，会员！！</h4>

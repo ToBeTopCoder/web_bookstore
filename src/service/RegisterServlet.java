@@ -42,6 +42,8 @@ public class RegisterServlet extends HttpServlet {
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setEmail(email);
+		int sex = gender.equals("man") ? User.MAN : User.WOMAN;
+		user.setSex(sex);
 		user.setPhone(telephone);
 		user.setIntroduce(introduce);
 		

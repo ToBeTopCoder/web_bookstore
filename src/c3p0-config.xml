@@ -2,7 +2,7 @@
 <!-- c3p0具体使用参考: http://www.cnblogs.com/luoxn28/p/5277596.html -->  
 <c3p0-config>  
     <default-config>  
-        <property name="jdbcUrl">jdbc:mysql://192.168.1.150/bookstore</property>  
+        <property name="jdbcUrl">jdbc:mysql://192.168.1.150/bookstore?useUnicode=true&amp;characterEncoding=UTF8</property>  
         <property name="driverClass">com.mysql.jdbc.Driver</property>  
         <property name="user">teamtalk</property>  
         <property name="password">123456</property>   
