@@ -5,9 +5,11 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.User;
 import dao.UserDao;
@@ -45,7 +47,26 @@ public class LoginServlet extends HttpServlet {
 			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/login.jsp");
 			return;
 		}
-		out.println("您好 " + username);
-		out.println("个人说明 " + user.getIntroduce());
+		
+		// 添加 user-id session
+		HttpSession session = request.getSession();
+		User cachedUser = (User) session.getAttribute("user-" + user.getId());
+		if (cachedUser == null) {
+			session.setAttribute("user-" + user.getId(), user);
+		}
+		
+		// 添加cookie，cookie信息为 user-id
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; cookies != null && i < cookies.length; i++) {
+			if (cookies[i].getName().equals("user")) {
+				out.println("你已成功登陆，1秒中后调到主页");
+				response.addHeader("refresh", "1;url=" + request.getContextPath() + "/client/index.jsp");
+				return;
+			}
+		}
+		Cookie cookie = new Cookie("user", "user-" + user.getId());
+		response.addCookie(cookie);
+		
+		response.addHeader("refresh", "0;url=" + request.getContextPath() + "/client/index.jsp");
 	}
 }

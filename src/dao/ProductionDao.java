@@ -78,6 +78,39 @@ public class ProductionDao {
 		return production;
 	}
 	
+	public Production getProductionById(int id) {
+		if (id <= 0) {
+			return null;
+		}
+		
+		Production production = null;
+		try {
+			ComboPooledDataSource cpds = new ComboPooledDataSource();
+			Connection connection = cpds.getConnection();
+			
+			Statement statement = (Statement) connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("select * from products where id ='" + id + "'");
+			if (resultSet.next()) {
+				production = new Production();
+				production.setId(resultSet.getInt("id"));
+				production.setName(resultSet.getString("name"));
+				production.setPrice(resultSet.getDouble("price"));
+				production.setCategory(resultSet.getString("category"));
+				production.setPnum(resultSet.getInt("pnum"));
+				production.setDescript(resultSet.getString("description"));
+			}
+			resultSet.close();
+			statement.close();
+			connection.close();
+			cpds.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return production;
+	}
+	
 	public List<Production> getAllProduction() {
 		List<Production> productions = new ArrayList<Production>();
 		
