@@ -32,7 +32,7 @@ public class BuyServlet extends HttpServlet {
 		}
 		
 		if (cookie.equals("")) {
-			out.println("亲，你还没有登陆呢");
+			out.println("亲，你还没有登陆呢，1秒后调到登陆页面");
 			response.addHeader("refresh", "1;url=" + request.getContextPath() + "/client/login.jsp");
 			return;
 		}
@@ -48,8 +48,19 @@ public class BuyServlet extends HttpServlet {
 			if (cart == null) {
 				cart = new LinkedHashMap<Production, Integer>();
 			}
-			cart.get(production);
-			cart.put(production, 1);
+			
+			if (cart.containsKey(production)) {
+				int num = cart.get(production);
+				cart.put(production, num + 1);
+			}
+			else {
+				cart.put(production, 1);
+			}
+			session.setAttribute("cart" + ids[1], cart);
+			
+			out.println("添加购物车成功<br/>");
+			out.println("<a href='"+request.getContextPath()+"/client/index.jsp'>继续购物</a>");
+			out.println("<a href='"+request.getContextPath()+"/client/cart.jsp'>查看购物车</a>");
 			//session.setAttribute("cart", );
 			//cart = new ArrayList<Book>();
 			//session.setAttribute("cart", cart);
