@@ -10,6 +10,11 @@
 	<title>购物车页面 - bookstore</title>
 </head>
 <body>
+	<div style="text-align: right">
+		<a href="${pageContext.request.contextPath}/client/index.jsp">继续购物</a>
+	</div>
+	<hr color="blue"/>
+	
 	<%
 		String cookie = "";
 		Cookie[] cookies = request.getCookies();
@@ -32,15 +37,16 @@
 	<hr/>
 	<%
 		String[] ids = cookie.split("-");
-		Map<Production, Integer> cart = (Map<Production, Integer>) session.getAttribute("cart" + ids[1]);
+		Map<Integer, Production> cart = (Map<Integer, Production>) session.getAttribute("cart" + ids[1]);
 		if (cart != null) {
-			Set<Production> keys = cart.keySet();
-			for (Production production : keys) {
+			Set<Integer> keys = cart.keySet();
+			for (Integer id : keys) {
+				Production production = cart.get(id);
 		%>
 			<div>
 				商品名:<%= production.getName() %> <br/>
 				价&nbsp;格:<%= production.getPrice() %> <br/>
-				数&nbsp;量:<%= cart.get(production) %> <br/>
+				数&nbsp;量:<%= production.getPnum() %> <br/>
 			</div>
 			<hr/>
 		<%

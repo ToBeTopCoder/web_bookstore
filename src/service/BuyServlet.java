@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,17 +45,21 @@ public class BuyServlet extends HttpServlet {
 			// 将商品放入购物车中
 			String[] ids = cookie.split("-");
 			HttpSession session = request.getSession();	
-			Map<Production, Integer> cart = (Map<Production, Integer>) session.getAttribute("cart" + ids[1]);
+			Map<Integer, Production> cart = (Map<Integer, Production>) session.getAttribute("cart" + ids[1]);
 			if (cart == null) {
-				cart = new LinkedHashMap<Production, Integer>();
+				cart = new LinkedHashMap<Integer, Production>();
 			}
 			
-			if (cart.containsKey(production)) {
-				int num = cart.get(production);
-				cart.put(production, num + 1);
+			System.out.println(cart);
+			if (cart.containsKey(production.getId())) {
+				int num = cart.get(production.getId()).getPnum();
+				cart.remove(production.getId());
+				production.setPnum(num + 1);
+				cart.put(production.getId(), production);
 			}
 			else {
-				cart.put(production, 1);
+				production.setPnum(1);
+				cart.put(production.getId(), production);
 			}
 			session.setAttribute("cart" + ids[1], cart);
 			
