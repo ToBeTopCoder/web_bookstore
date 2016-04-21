@@ -22,6 +22,7 @@
 	
 	<a href="${pageContext.request.contextPath}/admin/add_production.jsp">添加商品</a>
 	<a href="${pageContext.request.contextPath}/admin/show_production.jsp">所有商品</a>
+	<a href="${pageContext.request.contextPath}/admin/show_user.jsp">所有用户</a>
 	<hr color="blue"/>
 </body>
 </html>

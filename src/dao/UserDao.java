@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -112,5 +114,37 @@ public class UserDao {
 		}
 		
 		return user;
+	}
+	
+	public List<User> getAllUser() {
+		List<User> users = new ArrayList<User>();
+		
+		try {
+			ComboPooledDataSource cpds = new ComboPooledDataSource();
+			Connection connection = cpds.getConnection();
+			
+			Statement statement = (Statement) connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("select * from users");
+			while (resultSet.next()) {
+				User user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setUsername(resultSet.getString("username"));
+				user.setPassword(resultSet.getString("password"));
+				user.setEmail(resultSet.getString("email"));
+				user.setSex(resultSet.getInt("sex"));
+				user.setPhone(resultSet.getString("phone"));
+				user.setIntroduce(resultSet.getString("introduce"));
+				user.setIsAdmin(resultSet.getInt("is_admin"));
+				users.add(user);
+			}
+			resultSet.close();
+			statement.close();
+			connection.close();
+			cpds.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 }
