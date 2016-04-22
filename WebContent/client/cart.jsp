@@ -12,6 +12,7 @@
 <body>
 	<div style="text-align: right">
 		<a href="${pageContext.request.contextPath}/client/index.jsp">继续购物</a>
+		<a href="${pageContext.request.contextPath}/client/index.jsp">结算</a>
 	</div>
 	<hr color="blue"/>
 	

@@ -23,7 +23,7 @@
 				密&nbsp;码:<%= user.getPassword() %> <br/>
 				邮&nbsp;箱:<%= user.getEmail() %> <br/>
 				性&nbsp;别:<%= user.getSex() %> <br/>
-				手机:<%= user.getPhone() %> <br/>
+				手&nbsp;机:<%= user.getPhone() %> <br/>
 				介&nbsp;绍:<%= user.getIntroduce() %> <br/>
 				管理员:<%= user.getIsAdmin() %>
 			</div>
