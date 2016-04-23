@@ -44,6 +44,36 @@ public class OrderDao {
 		}
 	}
 	
+	public List<Order> getOrderByUserId(int userId) {
+		List<Order> orders = new ArrayList<Order>();
+		
+		try {
+			ComboPooledDataSource cpds = new ComboPooledDataSource();
+			Connection connection = cpds.getConnection();
+			
+			Statement statement = (Statement) connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("select * from orders where user_id=" + userId);
+			while (resultSet.next()) {
+				Order order = new Order();
+				order.setId(resultSet.getInt("id"));
+				order.setPrice(resultSet.getDouble("price"));
+				order.setRecvName(resultSet.getString("recv_name"));
+				order.setRecvPhone(resultSet.getString("recv_phone"));
+				order.setRecvAddress(resultSet.getString("recv_address"));
+				order.setUserId(resultSet.getInt("user_id"));
+				orders.add(order);
+			}
+			resultSet.close();
+			statement.close();
+			connection.close();
+			cpds.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return orders;
+	}
+	
 	public List<Order> getAllOrder() {
 		List<Order> orders = new ArrayList<Order>();
 		
