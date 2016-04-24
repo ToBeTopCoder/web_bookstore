@@ -10,6 +10,10 @@
 	<title>会员页面 - bookstore</title>
 </head>
 <body>
+	<div style="text-align: right; color: blue;" >
+		<a href="${pageContext.request.contextPath}/client/cart.jsp">查看购物车</a>
+	</div>
+	
 	<%
 		String cookie = "";
 		Cookie[] cookies = request.getCookies();
