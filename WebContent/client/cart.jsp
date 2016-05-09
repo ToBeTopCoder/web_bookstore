@@ -30,7 +30,7 @@
 			out.println("你好，" + user.getUsername());
 		}
 		else {
-			out.println("亲，你还没有登陆呢，1秒后调到登陆页面");
+			out.println("亲，你还没有登陆呢，1秒后调到到登陆页面");
 			response.addHeader("refresh", "1;url=" + request.getContextPath() + "/client/login.jsp");
 			return;
 		}
@@ -39,7 +39,7 @@
 	<%
 		String[] ids = cookie.split("-");
 		Map<Integer, Production> cart = (Map<Integer, Production>) session.getAttribute("cart" + ids[1]);
-		if (cart != null) {
+		if (cart != null && cart.size() > 0) {
 			Set<Integer> keys = cart.keySet();
 			for (Integer id : keys) {
 				Production production = cart.get(id);
@@ -52,6 +52,9 @@
 			<hr/>
 		<%
 			}
+		}
+		else {
+			out.println("购物车为空");
 		}
 	%>
 </body>

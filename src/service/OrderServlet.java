@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.Order;
 import dao.OrderDao;
+import dao.Production;
 import dao.User;
 
 @WebServlet(name="OrderServlet", urlPatterns={"/OrderServlet"})
@@ -50,12 +52,16 @@ public class OrderServlet extends HttpServlet {
 		for (int i = 0; cookies != null && i < cookies.length; i++) {
 			if (cookies[i].getName().equals("user")) {
 				cookie = cookies[i].getValue();
+				break;
 			}
 		}
+		
+		String[] cartId = cookie.split("-");
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute(cookie);
 		if (user != null) {
-			session.removeAttribute(cookie);
+			Map<Integer, Production> cart = (Map<Integer, Production>) session.getAttribute("cart" + cartId[1]);
+			cart.clear();
 		}
 	}
 }
