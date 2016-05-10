@@ -42,33 +42,43 @@ public class BuyServlet extends HttpServlet {
 		ProductionDao productionDao = new ProductionDao();
 		Production production = productionDao.getProductionById(Integer.parseInt(id));
 		if (production != null) {
-			// 将商品放入购物车中
-			String[] ids = cookie.split("-");
-			HttpSession session = request.getSession();	
-			Map<Integer, Production> cart = (Map<Integer, Production>) session.getAttribute("cart" + ids[1]);
-			if (cart == null) {
-				cart = new LinkedHashMap<Integer, Production>();
-			}
-			
-			System.out.println(cart);
-			if (cart.containsKey(production.getId())) {
-				int num = cart.get(production.getId()).getPnum();
-				cart.remove(production.getId());
-				production.setPnum(num + 1);
-				cart.put(production.getId(), production);
+			int bookNums = production.getPnum();
+			if (bookNums > 0) {
+				production.setPnum(bookNums - 1);
+				productionDao.updateProduction(production);
+				// 将商品放入购物车中
+				String[] ids = cookie.split("-");
+				HttpSession session = request.getSession();	
+				Map<Integer, Production> cart = (Map<Integer, Production>) session.getAttribute("cart" + ids[1]);
+				if (cart == null) {
+					cart = new LinkedHashMap<Integer, Production>();
+				}
+				
+				System.out.println(cart);
+				if (cart.containsKey(production.getId())) {
+					int num = cart.get(production.getId()).getPnum();
+					cart.remove(production.getId());
+					production.setPnum(num + 1);
+					cart.put(production.getId(), production);
+				}
+				else {
+					production.setPnum(1);
+					cart.put(production.getId(), production);
+				}
+				session.setAttribute("cart" + ids[1], cart);
+				
+				out.println("添加购物车成功<br/>");
+				out.println("<a href='"+request.getContextPath()+"/client/index.jsp'>继续购物</a>");
+				out.println("<a href='"+request.getContextPath()+"/client/cart.jsp'>查看购物车</a>");
+				//session.setAttribute("cart", );
+				//cart = new ArrayList<Book>();
+				//session.setAttribute("cart", cart);
 			}
 			else {
-				production.setPnum(1);
-				cart.put(production.getId(), production);
+				out.println("不好意思，你要买的书籍已卖完了<br/>");
+				out.println("<a href='"+request.getContextPath()+"/client/index.jsp'>继续购物</a>");
+				out.println("<a href='"+request.getContextPath()+"/client/cart.jsp'>查看购物车</a>");
 			}
-			session.setAttribute("cart" + ids[1], cart);
-			
-			out.println("添加购物车成功<br/>");
-			out.println("<a href='"+request.getContextPath()+"/client/index.jsp'>继续购物</a>");
-			out.println("<a href='"+request.getContextPath()+"/client/cart.jsp'>查看购物车</a>");
-			//session.setAttribute("cart", );
-			//cart = new ArrayList<Book>();
-			//session.setAttribute("cart", cart);
 		}
 	}
 

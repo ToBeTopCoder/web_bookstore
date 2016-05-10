@@ -45,6 +45,29 @@ public class ProductionDao {
 		}
 	}
 	
+	public void updateProduction(Production production) {
+		if (production == null) {
+			return;
+		}
+		
+		try {
+			ComboPooledDataSource cpds = new ComboPooledDataSource();
+			Connection connection = (Connection) cpds.getConnection();
+			
+			String sql = "update products set pnum=" + production.getPnum() +
+					" where id=" + production.getId();
+			Statement statement = (Statement) connection.createStatement();
+
+			statement.execute(sql);
+			statement.close();
+			connection.close();
+			cpds.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Production getProductionByName(String name) {
 		if (name == null) {
 			return null;
