@@ -1,0 +1,22 @@
+ALTER SCHEMA `web_book_store` DEFAULT CHARACTER SET utf8mb4 ;
+
+USE web_book_store;
+
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS products;
+
+CREATE TABLE user 
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	username VARCHAR(20) NOT NULL,
+	password VARCHAR(20) NOT NULL,
+	gender VARCHAR(4),
+	email VARCHAR(50),
+	phone VARCHAR(20),
+	introduce varchar(100),
+	activeCode VARCHAR(50),
+	state INT(11) DEFAULT 0,
+	role VARCHAR(10),
+	registTime TIMESTAMP NOT NULL DEFAULT '2016-01-01 00:00:00',
+	PRIMARY KEY(id)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT = 1;
