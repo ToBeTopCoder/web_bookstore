@@ -19,16 +19,16 @@ public class AdminPrivateFilter implements Filter {
 	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) res;
-		
-		User user = (User) request.getSession().getAttribute("user");
-		if (user != null && "admin".equals(user.getRoles())) {
-			chain.doFilter(request, response);
-			return;
-		}
-		
-		response.sendRedirect(request.getContextPath() + "/error/adminPrivate.jsp");
+//		HttpServletRequest request = (HttpServletRequest) req;
+//		HttpServletResponse response = (HttpServletResponse) res;
+//		
+//		User user = (User) request.getSession().getAttribute("user");
+//		if (user != null && "admin".equals(user.getRoles())) {
+//			chain.doFilter(request, response);
+//			return;
+//		}
+//		
+//		response.sendRedirect(request.getContextPath() + "/error/adminPrivate.jsp");
 	}
 	
 	@Override
