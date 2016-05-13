@@ -1,0 +1,23 @@
+/* head头 */
+#head {
+	text-align: right;
+	background-color: #C7DDEF;
+}
+
+/* 书籍种类栏 */
+#book_menu {
+	text-align: center;
+	background-color: #C7DDEF;
+}
+
+/* 书籍搜索栏 */
+#book_search {
+	text-align: right;
+	background-color: #C7DDEF;
+}
+
+/* 注册框 */
+#register_div {
+	position: relative;
+	left: 200px;
+}

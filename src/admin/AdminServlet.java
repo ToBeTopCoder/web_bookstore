@@ -27,11 +27,6 @@ public class AdminServlet extends HttpServlet {
 		
 		UserDao userDao = new UserDao();
 		User user = userDao.getUserByName(username);
-		if (user == null || user.getIsAdmin() == 0) {
-			out.println("大爷请回，您不是管理员！2秒后跳转到登录页面");
-			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/register.jsp");
-			return;
-		}
 		
 		if (!password.equals(user.getPassword())) {
 			out.println("密码貌似错了，2秒后跳转到管理员登录页面");

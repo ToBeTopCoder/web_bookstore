@@ -35,12 +35,6 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		
-		if (user.getIsAdmin() != 0) {
-			// 管理员
-			request.getRequestDispatcher("/AdminServlet").forward(request, response);
-			return;
-		}
-		
 		// 普通会员
 		if (!password.equals(user.getPassword())) {
 			out.println("密码貌似错了，2秒后跳转到会员登录页面");

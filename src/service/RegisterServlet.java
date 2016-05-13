@@ -2,6 +2,8 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import dao.User;
 import dao.UserDao;
 
+/*
+ * 用户注册Servlet
+ * @author: luoxn28
+ * @date: 2016.5.13
+ */
 @WebServlet(name="RegisterServlet", urlPatterns={"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
 	@Override
@@ -25,29 +32,30 @@ public class RegisterServlet extends HttpServlet {
 		// 表单验证使用javascript
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String email = request.getParameter("email");
 		String gender = request.getParameter("gender");
-		String telephone = request.getParameter("telephone");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
 		String introduce = request.getParameter("introduce");
 
 		User user = new User();
 		UserDao userDao = new UserDao();
 		
-		if (userDao.getUserByName(username) != null) {
-			out.println("该会员名已存在，请大爷更改！2秒后跳转到登录页面");
-			
-			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/register.jsp");
-			return;
-		}
 		user.setUsername(username);
 		user.setPassword(password);
+		user.setGender(gender);
 		user.setEmail(email);
-		int sex = gender.equals("man") ? User.MAN : User.WOMAN;
-		user.setSex(sex);
-		user.setPhone(telephone);
+		user.setPhone(phone);
 		user.setIntroduce(introduce);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		user.setRegistTime(dateFormat.format(new Date()));
+		try {
+			userDao.addUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		userDao.insertUser(user);
+		System.out.println(user.getIntroduce() + ": " + user.getGender());
+
 		out.println("注册成功，2秒后跳转到登录页面");
 		response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/login.jsp");
 	}
