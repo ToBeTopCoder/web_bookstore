@@ -21,3 +21,22 @@
 	position: relative;
 	left: 200px;
 }
+
+/* 登录界面div布局 */
+#login_div {
+	float: left;
+	margin-left: 200px;
+	width: 60%;
+}
+#login_div_left {
+	float: left;
+	width: 300px;
+	text-align: center;
+	background: gainsboro;
+}
+#login_div_right {
+	float: left;
+	margin-left: 20px;
+	text-align: center;
+	background: gainsboro;
+}

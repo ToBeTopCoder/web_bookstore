@@ -37,9 +37,14 @@ public class RegisterServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String introduce = request.getParameter("introduce");
 
-		User user = new User();
 		UserDao userDao = new UserDao();
+		if (userDao.getUser(username) != null) {
+			out.println("你好，该用户已存在，2秒后跳转到注册页面");
+			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/register.jsp");
+			return;
+		}
 		
+		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setGender(gender);
@@ -48,13 +53,7 @@ public class RegisterServlet extends HttpServlet {
 		user.setIntroduce(introduce);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		user.setRegistTime(dateFormat.format(new Date()));
-		try {
-			userDao.addUser(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println(user.getIntroduce() + ": " + user.getGender());
+		userDao.addUser(user);
 
 		out.println("注册成功，2秒后跳转到登录页面");
 		response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/login.jsp");
