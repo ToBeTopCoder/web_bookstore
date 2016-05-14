@@ -12,24 +12,5 @@
 	<div style="text-align: right;">
 		<a href="${pageContext.request.contextPath}/admin/index.jsp">回到主页</a>
 	</div> <hr/>
-	
-	<%
-		UserDao userDao = new UserDao();
-		List<User> users = userDao.getAllUser();
-		for (User user : users) {
-		%>
-			<div>
-				用户名:<%= user.getUsername() %> <br/>
-				密&nbsp;码:<%= user.getPassword() %> <br/>
-				邮&nbsp;箱:<%= user.getEmail() %> <br/>
-				性&nbsp;别:<%= user.getSex() %> <br/>
-				手&nbsp;机:<%= user.getPhone() %> <br/>
-				介&nbsp;绍:<%= user.getIntroduce() %> <br/>
-				管理员:<%= user.getIsAdmin() %>
-			</div>
-			<hr/>
-		<%
-		}
-	%>
 </body>
 </html>

@@ -9,11 +9,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.User;
 import dao.UserDao;
 
+/*
+ * 用户登录Servlet
+ * @author: luoxn28
+ * @date: 2016.5.14
+ */
 @WebServlet(name="LoginServlet", urlPatterns={"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 	@Override
@@ -28,39 +32,38 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		UserDao userDao = new UserDao();
 		
-		User user = userDao.getUserByName(username);
+		User user = userDao.getUser(username);
 		if (user == null) {
-			out.println("大爷好，您当前还未注册，2秒后调到注册页面");
+			out.println("抱歉，你当前还未注册，2秒后调到注册页面");
 			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/register.jsp");
 			return;
 		}
-		
-		// 普通会员
-		if (!password.equals(user.getPassword())) {
-			out.println("密码貌似错了，2秒后跳转到会员登录页面");
+		else if (!user.getPassword().equals(password)) {
+			out.println("抱歉，输入密码错误，2秒后调到登录页面");
 			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/login.jsp");
 			return;
 		}
-		
-		// 添加 user-id session
-		HttpSession session = request.getSession();
-		User cachedUser = (User) session.getAttribute("user-" + user.getId());
-		if (cachedUser == null) {
-			session.setAttribute("user-" + user.getId(), user);
+		else if (user.getState() == 0) {
+			// 未激活
+			out.println("抱歉，你当前还未激活，请联系管理员，2秒后调到登录页面");
+			response.addHeader("refresh", "2;url=" + request.getContextPath() + "/client/login.jsp");
+			return;
 		}
-		
-		// 添加cookie，cookie信息为 user-id
-		Cookie[] cookies = request.getCookies();
-		for (int i = 0; cookies != null && i < cookies.length; i++) {
-			if (cookies[i].getName().equals("user")) {
-				out.println("你已成功登陆，1秒中后调到主页");
-				response.addHeader("refresh", "1;url=" + request.getContextPath() + "/client/index.jsp");
-				return;
-			}
-		}
-		Cookie cookie = new Cookie("user", "user-" + user.getId());
+
+		// 登录成功，将用户存储到session
+		request.getSession().setAttribute("user" + user.getId(), user);
+		// 添加cookie，cookie信息为 user:id
+		Cookie cookie = new Cookie("user", String.valueOf(user.getId()));
 		response.addCookie(cookie);
 		
-		response.addHeader("refresh", "0;url=" + request.getContextPath() + "/client/index.jsp");
+		// 判断用户是否是管理员
+		String role = user.getRole();
+		if (role.equals("admin")) {
+			response.sendRedirect(request.getContextPath() + "/admin/index.jsp");
+			return;
+		}
+		else {
+			response.sendRedirect(request.getContextPath() + "/client/index.jsp");
+		}
 	}
 }
