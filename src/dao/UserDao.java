@@ -20,8 +20,6 @@ import util.DataSourceUtils;
  * @date: 2016.5.13
  */
 public class UserDao {
-	public static DataSource ds = null;
-	
 	/*
 	 * 往user表中插入一个用户
 	 * @param User
@@ -61,6 +59,41 @@ public class UserDao {
 		try {
 			Connection connection = DataSourceUtils.getConnection();
 			String sql = "SELECT * from user where username='" + username + "'";
+			
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			if (resultSet.next()) {
+				user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setUsername(resultSet.getString("username"));
+				user.setPassword(resultSet.getString("password"));
+				user.setGender(resultSet.getString("gender"));
+				user.setEmail(resultSet.getString("email"));
+				user.setPhone(resultSet.getString("phone"));
+				user.setIntroduce(resultSet.getString("introduce"));
+				user.setActiveCode(resultSet.getString("activeCode"));
+				user.setState(resultSet.getInt("state"));
+				user.setRole(resultSet.getString("role"));
+				user.setRegistTime(resultSet.getString("registTime"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	/*
+	 * 根据用户id获取数据库中该用户记录
+	 * @param id 用户id
+	 * @return User 该用户对应，未找到返回null
+	 */
+	public User getUser(int id) {
+		User user = null;
+		
+		try {
+			Connection connection = DataSourceUtils.getConnection();
+			String sql = "SELECT * from user where id=" + id;
 			
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);

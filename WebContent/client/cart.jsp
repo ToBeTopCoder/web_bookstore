@@ -1,61 +1,41 @@
+<%-- 
+	购物车页面
+	@author: luoxn28
+	@date: 2016.5.15
+--%>
+
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<%@ page import="dao.User"%>
-<%@ page import="dao.Production, dao.ProductionDao" %>
-<%@ page import="java.util.*" %>
+    pageEncoding="utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css"/>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>购物车页面 - bookstore</title>
 </head>
 <body>
-	<div style="text-align: right">
-		<a href="${pageContext.request.contextPath}/client/index.jsp">继续购物</a>
-		<a href="${pageContext.request.contextPath}/client/order.jsp">结算</a>
-	</div>
-	<hr/>
+	<%@ include file="../util/head.jsp" %>
+	<%@ include file="../util/menu_search.jsp" %>
 	
-	<%
-		String cookie = "";
-		Cookie[] cookies = request.getCookies();
-		for (int i = 0; cookies != null && i < cookies.length; i++) {
-			if (cookies[i].getName().equals("user")) {
-				cookie = cookies[i].getValue();
-			}
-		}
-
-		User user = (User) session.getAttribute(cookie);
-		if (user != null) {
-			out.println("你好，" + user.getUsername());
-		}
-		else {
-			out.println("亲，你还没有登陆呢，1秒后调到到登陆页面");
-			response.addHeader("refresh", "1;url=" + request.getContextPath() + "/client/login.jsp");
-			return;
-		}
-	%>
-	<hr/>
-	<%
-		String[] ids = cookie.split("-");
-		Map<Integer, Production> cart = (Map<Integer, Production>) session.getAttribute("cart" + ids[1]);
-		if (cart != null && cart.size() > 0) {
-			Set<Integer> keys = cart.keySet();
-			for (Integer id : keys) {
-				Production production = cart.get(id);
-		%>
-			<div>
-				商品名:<%= production.getName() %> <br/>
-				价&nbsp;格:<%= production.getPrice() %> <br/>
-				数&nbsp;量:<%= production.getPnum() %> <br/>
-			</div>
-			<hr/>
-		<%
-			}
-		}
-		else {
-			out.println("购物车为空");
-		}
-	%>
+	这里是购物车啦
+	<c:if test="${cookie['user'] != null}">
+		<c:set var="userId" value="${cookie['user'].value}"/>
+		${userId}
+	</c:if>
+	
+	<c:set var="cartId" value="cart${userId}"></c:set>
+	<c:set var="total" value="0"/>
+	<c:forEach var="entry" items="${cartId}" varStatus="vs">
+		<table witdth="100%" border="0" cellspacing="0">
+			<tr>
+				<td width="10%">${vs.count}</td>
+				${entry}
+			</tr>
+		</table>
+	</c:forEach>
+	 
 </body>
 </html>
