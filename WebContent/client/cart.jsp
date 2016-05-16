@@ -40,7 +40,7 @@
 		}
 	%>
 
-	<table cellspacing="1">
+	<table border="1" cellspacing="0" id="cart_table">
 		<tr>
 			<td>序号</td>
 			<td>商品名称</td>

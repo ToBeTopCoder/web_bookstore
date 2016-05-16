@@ -55,6 +55,7 @@ public class ProductDao {
 				product = new Product();
 				product.setId(id);
 				product.setName(resultSet.getString("name"));
+				product.setPrice(resultSet.getDouble("price"));
 				product.setCategory(resultSet.getString("category"));
 				product.setNum(resultSet.getInt("num"));
 				product.setImgrul(resultSet.getString("imgurl"));
