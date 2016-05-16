@@ -55,13 +55,17 @@ public class AddCarServlet  extends HttpServlet {
 		if (cart == null) {
 			cart = new HashMap<Product, Integer>();
 		}
-		// count返回不为null，说明购物车已存在该商品
-		Integer count = cart.put(product, 1);
-		if (count != null) {
-			cart.put(product, count + 1);
+		
+		// 如果购物车包含该商品，则加1
+		if (cart.containsKey(product)) {
+			Integer num = cart.get(product);
+			cart.put(product, num + 1);
 		}
+		else {
+			cart.put(product, 1);
+		}
+		
 		session.setAttribute("cart" + cookie.getValue(), cart);
-		System.out.println("cart" + cookie.getValue() + " " + count);
 		response.sendRedirect(request.getContextPath() + "/client/cart.jsp");
 	}
 }

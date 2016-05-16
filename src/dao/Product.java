@@ -24,6 +24,27 @@ public class Product {
 		this.description = "";
 	}
 	
+	@Override
+	public int hashCode() {
+		return this.id;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+        Product product = (Product) o;
+
+        if (this.id == product.id) {
+        	return true;
+        }
+        return true;
+	}
+
 	public int getId() {
 		return id;
 	}
