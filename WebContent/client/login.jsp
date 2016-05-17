@@ -24,7 +24,7 @@
 			<form action="${pageContext.request.contextPath}/LoginServlet" method="post">
 				<p><h4>个人用户登录</h4></p>
 				用户名:<input type="text" name="username"/> <br/>
-				密&nbsp;码:<input type="text" name="password"/> <br/>
+				密&nbsp;码:<input type="password" name="password"/> <br/>
 				&nbsp;<input type="checkbox" name="checkbox" value="checkbox"/>记住用户名&nbsp;&nbsp;
 				<input type="checkbox" name="checkbox" value="checkbox"/>自动登录&nbsp; <br/>
 				<input type="submit" value="登录"/>

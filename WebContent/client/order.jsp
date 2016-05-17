@@ -17,9 +17,12 @@
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>订单页面 - bookstore</title>
+	<title>购物车页面 - bookstore</title>
 </head>
 <body>
+	<%@ include file="../util/head.jsp" %>
+	<%@ include file="../util/menu_search.jsp" %>
+	
 	<%
 		Cookie cookie = ServletUtils.getCookie(request, "user");
 		if (cookie == null) {
