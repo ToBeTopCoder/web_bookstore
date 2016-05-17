@@ -50,7 +50,7 @@
 			<td>小计</td>
 			<td>删除</td>
 		<tr>
-		<c:set var="num" value="0" scope="page"/>
+		<c:set var="total" value="0" scope="page"/>
 		<c:forEach var="entry" items="<%= cart %>" varStatus="vs">
 		<tr>
 			<td>${vs.count}</td>
@@ -59,15 +59,21 @@
 			<td>${entry.value}</td>
 			<td>${entry.key.num}</td>
 			<td>${entry.key.price * entry.value}</td>
-			<td><a href="${pageContext.request.contextPath}/ChangeCartServlet?id=${entry.key.id}">删除</a></td>
+			<td><a href="${pageContext.request.contextPath}/ChangeCartServlet?id=${entry.key.id}">删除</a></td>			
+			<c:set var="total" value="${total + entry.key.price * entry.value}"/>
 		</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="7" style="text-align: right">
+				合计:${total}元
+			</td>
+		</tr>
 		<tr>
 			<td colspan="7" style="text-align: right">
 				<a href="${pageContext.request.contextPath}/client/index.jsp">
 					<b>继续购物</b>
 				</a>&nbsp;
-				<a href="#">
+				<a href="${pageContext.request.contextPath}/client/order.jsp">
 					<b>现在结账</b>
 				</a>
 			</td>
