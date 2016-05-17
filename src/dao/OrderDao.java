@@ -12,95 +12,36 @@ import javax.sql.DataSource;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import util.DataSourceUtils;
+
+/*
+ * 订单操作类
+ * @author: luoxn28
+ * @date: 2016.5.18
+ */
 public class OrderDao {
-	public static DataSource ds = null;
-	
-	public void insertOrder(Order order) {
-		if (order == null) {
-			return;
-		}
-		
+	/*
+	 * 往订单orders表中插入一条订单记录
+	 * @param Order
+	 * @return void
+	 */
+	public void addOrder(Order order) {
 		try {
-			ComboPooledDataSource cpds = new ComboPooledDataSource();
-			Connection connection = (Connection) cpds.getConnection();
+			Connection connection = DataSourceUtils.getConnection();
+			String sql = "INSERT orders (money, receiveAddess, receiveName, receivePhone, paystate, orderTim, user_id)"
+					+ "(?, ?, ?, ?, ?, ?, ?)";
 			
-			String sql = "insert orders (price, recv_name, recv_phone, recv_address, user_id)"
-					+ "value(?, ?, ?, ?, ?)";
-			PreparedStatement statement = (PreparedStatement) connection.prepareStatement(sql);
-			
-			statement.setDouble(1, order.getPrice());
-			statement.setString(2, order.getRecvName());
-			statement.setString(3, order.getRecvPhone());
-			statement.setString(4, order.getRecvAddress());
-			statement.setInt(5, order.getUserId());
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setDouble(1, order.getMoney());
+			statement.setString(2, order.getReceiceAddress());
+			statement.setString(3, order.getRecviceName());
+			statement.setString(4, order.getRecvicePhone());
+			statement.setDouble(5, order.getPaystate());
+			statement.setString(6, order.getOrderTime());
+			statement.setInt(7, order.getUserId());
 			statement.executeUpdate();
-			
-			statement.close();
-			connection.close();
-			cpds.close();
-		}
-		catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public List<Order> getOrderByUserId(int userId) {
-		List<Order> orders = new ArrayList<Order>();
-		
-		try {
-			ComboPooledDataSource cpds = new ComboPooledDataSource();
-			Connection connection = cpds.getConnection();
-			
-			Statement statement = (Statement) connection.createStatement();
-			ResultSet resultSet = statement.executeQuery("select * from orders where user_id=" + userId);
-			while (resultSet.next()) {
-				Order order = new Order();
-				order.setId(resultSet.getInt("id"));
-				order.setPrice(resultSet.getDouble("price"));
-				order.setRecvName(resultSet.getString("recv_name"));
-				order.setRecvPhone(resultSet.getString("recv_phone"));
-				order.setRecvAddress(resultSet.getString("recv_address"));
-				order.setUserId(resultSet.getInt("user_id"));
-				orders.add(order);
-			}
-			resultSet.close();
-			statement.close();
-			connection.close();
-			cpds.close();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return orders;
-	}
-	
-	public List<Order> getAllOrder() {
-		List<Order> orders = new ArrayList<Order>();
-		
-		try {
-			ComboPooledDataSource cpds = new ComboPooledDataSource();
-			Connection connection = cpds.getConnection();
-			
-			Statement statement = (Statement) connection.createStatement();
-			ResultSet resultSet = statement.executeQuery("select * from orders");
-			while (resultSet.next()) {
-				Order order = new Order();
-				order.setId(resultSet.getInt("id"));
-				order.setPrice(resultSet.getDouble("price"));
-				order.setRecvName(resultSet.getString("recv_name"));
-				order.setRecvPhone(resultSet.getString("recv_phone"));
-				order.setRecvAddress(resultSet.getString("recv_address"));
-				order.setUserId(resultSet.getInt("user_id"));
-				orders.add(order);
-			}
-			resultSet.close();
-			statement.close();
-			connection.close();
-			cpds.close();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return orders;
 	}
 }

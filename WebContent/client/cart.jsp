@@ -72,7 +72,7 @@
 			<td colspan="7" style="text-align: right">
 				<a href="${pageContext.request.contextPath}/client/index.jsp">
 					<b>继续购物</b>
-				</a>&nbsp;
+				</a>
 				<a href="${pageContext.request.contextPath}/client/order.jsp">
 					<b>现在结账</b>
 				</a>
