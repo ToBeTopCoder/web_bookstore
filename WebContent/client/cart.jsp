@@ -59,9 +59,19 @@
 			<td>${entry.value}</td>
 			<td>${entry.key.num}</td>
 			<td>${entry.key.price * entry.value}</td>
-			<td>删除</td>
+			<td><a href="${pageContext.request.contextPath}/ChangeCartServlet?id=${entry.key.id}">删除</a></td>
 		</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="7" style="text-align: right">
+				<a href="${pageContext.request.contextPath}/client/index.jsp">
+					<b>继续购物</b>
+				</a>&nbsp;
+				<a href="#">
+					<b>现在结账</b>
+				</a>
+			</td>
+		</tr>
 	</table>
 	
 </body>
