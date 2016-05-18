@@ -20,10 +20,10 @@ public class OrderItemDao {
 		try {
 			Connection connection = DataSourceUtils.getConnection();
 			String sql = "INSERT orderitem (order_id, product_id, buynum)"
-					+ "(?, ?, ?)";
+					+ "value(?, ?, ?)";
 			
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, orderItem.getOrderId());
+			statement.setString(1, orderItem.getOrderId());
 			statement.setInt(2, orderItem.getProductId());
 			statement.setInt(3, orderItem.getBuyNum());
 			statement.executeUpdate();

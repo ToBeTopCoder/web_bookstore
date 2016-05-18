@@ -6,7 +6,7 @@ package dao;
  * @date: 2016.5.18
  */
 public class Order {
-	private int id; 				// 订单id
+	private String id; 				// 订单id
 	private double money; 			// 订单价格
 	private String receiceAddress;	// 收货地址
 	private String recviceName;		// 收货人
@@ -16,7 +16,7 @@ public class Order {
 	private int userId;				// 用户id
 	
 	public Order() {
-		this.id = 0;
+		this.id = "";
 		this.money = 0.0;
 		this.receiceAddress = "";
 		this.recviceName = "";
@@ -26,11 +26,11 @@ public class Order {
 		this.userId = 0;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

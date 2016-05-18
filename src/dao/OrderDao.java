@@ -28,17 +28,18 @@ public class OrderDao {
 	public void addOrder(Order order) {
 		try {
 			Connection connection = DataSourceUtils.getConnection();
-			String sql = "INSERT orders (money, receiveAddess, receiveName, receivePhone, paystate, orderTim, user_id)"
-					+ "(?, ?, ?, ?, ?, ?, ?)";
-			
+			String sql = "INSERT orders (id, money, receiveAddress, receiveName, receivePhone, paystate, orderTime, user_id)"
+					+ "value(?, ?, ?, ?, ?, ?, ?, ?)";
+
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setDouble(1, order.getMoney());
-			statement.setString(2, order.getReceiceAddress());
-			statement.setString(3, order.getRecviceName());
-			statement.setString(4, order.getRecvicePhone());
-			statement.setDouble(5, order.getPaystate());
-			statement.setString(6, order.getOrderTime());
-			statement.setInt(7, order.getUserId());
+			statement.setString(1, order.getId());
+			statement.setDouble(2, order.getMoney());
+			statement.setString(3, order.getReceiceAddress());
+			statement.setString(4, order.getRecviceName());
+			statement.setString(5, order.getRecvicePhone());
+			statement.setDouble(6, order.getPaystate());
+			statement.setString(7, order.getOrderTime());
+			statement.setInt(8, order.getUserId());
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -6,21 +6,21 @@ package dao;
  * @date: 2016.5.18
  */
 public class OrderItem {
-	private int orderId;
+	private String orderId;
 	private int productId;
 	private int buyNum;
 	
 	public OrderItem() {
-		this.orderId = 0;
+		this.orderId = "";
 		this.productId = 0;
 		this.buyNum = 0;
 	}
 	
-	public int getOrderId() {
+	public String getOrderId() {
 		return orderId;
 	}
 	
-	public void setOrderId(int orderId) {
+	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
 	

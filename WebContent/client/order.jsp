@@ -68,17 +68,13 @@
 		<tr>
 			<td colspan="6" style="text-align: left">
 				<div>
-					收货地址:<input type="text" name="address"/> <br/>
-					收货人:<input type="text" name="name"/> <br/>
-					电话:<input type="text" name="phone"/>
+					<form action="${pageContext.request.contextPath}/CreateOrderServlet" method="post">
+						收货地址:<input type="text" name="address"/> <br/>
+						收货人:<input type="text" name="name"/> <br/>
+						电话:<input type="text" name="phone"/> <br/>
+						<input type="submit" value="提交订单">
+					</form>
 				</div>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="6" style="text-align: right">
-				<a href="${pageContext.request.contextPath}/CreateOrderServlet">
-					<b>提交订单</b>
-				</a>
 			</td>
 		</tr>
 	</table>
