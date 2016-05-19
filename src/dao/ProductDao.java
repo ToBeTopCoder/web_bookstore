@@ -67,4 +67,21 @@ public class ProductDao {
 		
 		return product;
 	}
+	
+	/*
+	 * 更新数据表中producct余量
+	 * @param id: 商品id，num:商品余量
+	 * @return void
+	 */
+	public void updateProductNum(int id, int num) {
+		try {
+			Connection connection = DataSourceUtils.getConnection();
+			String sql = "UPDATE products set num=" + num + " where id=" + id;
+			
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -19,6 +19,7 @@ import dao.OrderDao;
 import dao.OrderItem;
 import dao.OrderItemDao;
 import dao.Product;
+import dao.ProductDao;
 import util.ServletUtils;
 
 /*
@@ -73,14 +74,18 @@ public class CreateOrderServlet extends HttpServlet {
 		// 订单入库
 		orderDao.addOrder(order);
 		
-		OrderItemDao orderItemDao = new OrderItemDao(); 
+		ProductDao productDao = new ProductDao();
+		OrderItemDao orderItemDao = new OrderItemDao();
 		for (Product product : cart.keySet()) {
 			OrderItem orderItem = new OrderItem();
 			orderItem.setOrderId(order.getId());
 			orderItem.setProductId(product.getId());
 			orderItem.setBuyNum(cart.get(product));
 			orderItemDao.addOrderItem(orderItem);
+			// 更新products表中商品余量
+			productDao.updateProductNum(product.getId(), product.getNum() - cart.get(product));
 		}
+		cart.clear();
 		response.sendRedirect(request.getContextPath() + "/client/createOrderSuccess.jsp");
 	}
 }
