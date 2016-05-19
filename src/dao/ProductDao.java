@@ -121,4 +121,33 @@ public class ProductDao {
 		
 		return set;
 	}
+	
+	public Set<Product> getProductBySearchName(String bookName) {
+		Set<Product> set = null;
+		
+		try {
+			// 使用通配符，效率较低
+			String sql = "SELECT * FROM products WHERE name LIKE '%" + bookName + "%'";
+			Connection connection = DataSourceUtils.getConnection();
+			Statement statement = connection.createStatement();
+
+			set = new LinkedHashSet<Product>();
+			ResultSet resultSet = statement.executeQuery(sql);
+			if (resultSet.next()) {
+				Product product = new Product();
+				product.setId(resultSet.getInt("id"));
+				product.setName(resultSet.getString("name"));
+				product.setPrice(resultSet.getDouble("price"));
+				product.setCategory(resultSet.getString("category"));
+				product.setNum(resultSet.getInt("num"));
+				product.setImgurl(resultSet.getString("imgurl"));
+				product.setDescription(resultSet.getString("description"));
+				set.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return set;
+	}
 }

@@ -35,8 +35,8 @@
 </div>
 
 <div id="book_search">
-	<form action="#" method="get">
-		Search<input type="text" value="请输入书名"/>
+	<form action="${pageContext.request.contextPath}/MenuSearchServlet" method="get">
+		Search<input type="text" name="findBook" value="请输入书名"/>
 		<input type="submit" value="搜索"/>
 	</form>
 </div>
