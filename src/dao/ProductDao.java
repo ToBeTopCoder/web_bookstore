@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import util.DataSourceUtils;
 
@@ -29,7 +31,7 @@ public class ProductDao {
 			statement.setDouble(2, product.getPrice());
 			statement.setString(3, product.getCategory());
 			statement.setInt(4, product.getNum());
-			statement.setString(5, product.getImgrul());
+			statement.setString(5, product.getImgurl());
 			statement.setString(6, product.getDescription());
 			statement.executeUpdate();
 		} catch (Exception e) {
@@ -58,7 +60,7 @@ public class ProductDao {
 				product.setPrice(resultSet.getDouble("price"));
 				product.setCategory(resultSet.getString("category"));
 				product.setNum(resultSet.getInt("num"));
-				product.setImgrul(resultSet.getString("imgurl"));
+				product.setImgurl(resultSet.getString("imgurl"));
 				product.setDescription(resultSet.getString("description"));
 			}
 		} catch (Exception e) {
@@ -83,5 +85,40 @@ public class ProductDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/*
+	 * 根据商品种类获取商品
+	 * 
+	 */
+	public Set<Product> getProductByCategory(String category) {
+		Set<Product> set = null;
+		
+		try {
+			String sql = "SELECT * FROM products";
+			Connection connection = DataSourceUtils.getConnection();
+			Statement statement = connection.createStatement();
+
+			if (!category.equals("全部商品")) {
+				sql += " where category='" + category + "'";
+			}
+			set = new LinkedHashSet<Product>();
+			ResultSet resultSet = statement.executeQuery(sql);
+			if (resultSet.next()) {
+				Product product = new Product();
+				product.setId(resultSet.getInt("id"));
+				product.setName(resultSet.getString("name"));
+				product.setPrice(resultSet.getDouble("price"));
+				product.setCategory(resultSet.getString("category"));
+				product.setNum(resultSet.getInt("num"));
+				product.setImgurl(resultSet.getString("imgurl"));
+				product.setDescription(resultSet.getString("description"));
+				set.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return set;
 	}
 }

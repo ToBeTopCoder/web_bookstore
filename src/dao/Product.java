@@ -11,7 +11,7 @@ public class Product {
 	private double price;
 	private String category;
 	private int num;
-	private String imgrul;
+	private String imgurl;
 	private String description;
 	
 	public Product() {
@@ -20,7 +20,7 @@ public class Product {
 		this.price = 0.0;
 		this.category = "";
 		this.num = 0;
-		this.imgrul = "";
+		this.imgurl = "";
 		this.description = "";
 	}
 	
@@ -85,12 +85,12 @@ public class Product {
 		this.num = num;
 	}
 	
-	public String getImgrul() {
-		return imgrul;
+	public String getImgurl() {
+		return imgurl;
 	}
 	
-	public void setImgrul(String imgrul) {
-		this.imgrul = imgrul;
+	public void setImgurl(String imgurl) {
+		this.imgurl = imgurl;
 	}
 	
 	public String getDescription() {
