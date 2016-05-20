@@ -1,3 +1,9 @@
+<%-- 
+	网页头部信息
+	@author: luoxn28
+	@date: 2016.5.15
+--%>
+
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
