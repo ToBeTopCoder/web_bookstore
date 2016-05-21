@@ -19,6 +19,10 @@
 	<%@ include file="../util/head.jsp" %>
 	<%@ include file="../util/menu_search.jsp" %>
 
-	订单提交成功了，该结算了。。
+	<form action="${pageContext.request.contextPath}/OrderSuccessServlet">
+		支付宝:<input type="text" name="account"/> <br/>
+		密&nbsp;码:<input type="password" name="password"/>
+		<input type="submit" value="确定"/>
+	</form>
 </body>
 </html>
