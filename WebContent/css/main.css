@@ -3,6 +3,10 @@
 	text-align: right;
 	background-color: #C7DDEF;
 }
+#admin_head {
+	text-align: center;
+	background-color: #C7DDEF;
+}
 
 /* 书籍种类栏 */
 #book_menu {
