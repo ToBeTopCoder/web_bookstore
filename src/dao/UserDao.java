@@ -117,4 +117,41 @@ public class UserDao {
 		
 		return user;
 	}
+	
+	/*
+	 * 获取所有用户
+	 * @param void
+	 * @return User 所有用户
+	 */
+	public List<User> getAllUser() {
+		List<User> users = null;
+		
+		try {
+			Connection connection = DataSourceUtils.getConnection();
+			String sql = "SELECT * from user";
+			
+			users = new ArrayList<User>();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			while (resultSet.next()) {
+				User user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setUsername(resultSet.getString("username"));
+				user.setPassword(resultSet.getString("password"));
+				user.setGender(resultSet.getString("gender"));
+				user.setEmail(resultSet.getString("email"));
+				user.setPhone(resultSet.getString("phone"));
+				user.setIntroduce(resultSet.getString("introduce"));
+				user.setActiveCode(resultSet.getString("activeCode"));
+				user.setState(resultSet.getInt("state"));
+				user.setRole(resultSet.getString("role"));
+				user.setRegistTime(resultSet.getString("registTime"));
+				users.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return users;
+	}
 }

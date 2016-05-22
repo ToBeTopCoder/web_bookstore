@@ -10,9 +10,12 @@
 
 <div id="admin_head">
 	<b>网上书城--后台管理系统</b> 
-	<div style="text-align: right"><%= new Date() %></div>
+	<div style="text-align: right">
+		<%= new Date() %>
+		<a href="${pageContext.request.contextPath}/admin/index.jsp">回到主页</a>
+	</div>
 	
 	<a href="${pageContext.request.contextPath}/admin/add_production.jsp">添加商品</a>
 	<a href="${pageContext.request.contextPath}/admin/show_production.jsp">所有商品</a>
-	<a href="${pageContext.request.contextPath}/admin/show_user.jsp">所有用户</a>
+	<a href="${pageContext.request.contextPath}/ShowUserServlet">所有用户</a>
 </div>
