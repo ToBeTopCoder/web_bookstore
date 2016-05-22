@@ -16,6 +16,6 @@
 	</div>
 	
 	<a href="${pageContext.request.contextPath}/admin/add_production.jsp">添加商品</a>
-	<a href="${pageContext.request.contextPath}/admin/show_production.jsp">所有商品</a>
+	<a href="${pageContext.request.contextPath}/ShowProductServlet">所有商品</a>
 	<a href="${pageContext.request.contextPath}/ShowUserServlet">所有用户</a>
 </div>

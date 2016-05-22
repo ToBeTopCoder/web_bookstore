@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import util.DataSourceUtils;
@@ -89,7 +91,8 @@ public class ProductDao {
 	
 	/*
 	 * 根据商品种类获取商品
-	 * 
+	 * @param category 商品种类
+	 * @return Set 该种类商品集合
 	 */
 	public Set<Product> getProductByCategory(String category) {
 		Set<Product> set = null;
@@ -122,6 +125,11 @@ public class ProductDao {
 		return set;
 	}
 	
+	/*
+	 * 根据名称查找商品，未找到返回null
+	 * @param bookName 商品名
+	 * @return 包含该商品名的商品集合
+	 */
 	public Set<Product> getProductBySearchName(String bookName) {
 		Set<Product> set = null;
 		
@@ -149,5 +157,38 @@ public class ProductDao {
 		}
 		
 		return set;
+	}
+	
+	/*
+	 * 获取所有商品
+	 * @param void
+	 * @return 所有商品List
+	 */
+	public List<Product> getAllProdut() {
+		List<Product> lists = null;
+		
+		try {
+			String sql = "SELECT * FROM products";
+			Connection connection = DataSourceUtils.getConnection();
+			Statement statement = connection.createStatement();
+
+			lists = new ArrayList<Product>();
+			ResultSet resultSet = statement.executeQuery(sql);
+			if (resultSet.next()) {
+				Product product = new Product();
+				product.setId(resultSet.getInt("id"));
+				product.setName(resultSet.getString("name"));
+				product.setPrice(resultSet.getDouble("price"));
+				product.setCategory(resultSet.getString("category"));
+				product.setNum(resultSet.getInt("num"));
+				product.setImgurl(resultSet.getString("imgurl"));
+				product.setDescription(resultSet.getString("description"));
+				lists.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return lists;
 	}
 }
