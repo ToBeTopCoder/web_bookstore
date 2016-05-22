@@ -22,3 +22,13 @@ function validate_form(form) {
 		return false;
 	}
 }
+
+function validate_add_product(form) {
+	var name = form.name.value;
+	var price = form.price.value;
+	
+	if (name == null || name == "" || price == null || price == "") {
+		alert("商品名或者价格为空");
+		return false;
+	}
+}
