@@ -13,6 +13,7 @@
 	<div style="text-align: right">
 		<%= new Date() %>
 		<a href="${pageContext.request.contextPath}/admin/index.jsp">回到主页</a>
+		<a href="${pageContext.request.contextPath}/client/login.jsp">登录</a>
 	</div>
 	
 	<a href="${pageContext.request.contextPath}/admin/add_production.jsp">添加商品</a>

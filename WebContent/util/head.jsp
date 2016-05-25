@@ -4,4 +4,5 @@
 <div id="head" >
 	<a href="${pageContext.request.contextPath}/client/cart.jsp">购物车</a>
 	<a href="${pageContext.request.contextPath}/client/login.jsp">登录</a>
+	<a href="${pageContext.request.contextPath}/client/index.jsp">主页</a>
 </div>

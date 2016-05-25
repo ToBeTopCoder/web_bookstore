@@ -7,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="dao.Product, dao.ProductDao, java.util.List" %>
 
 <html>
 <head>
@@ -20,10 +21,21 @@
 	<%@ include file="../util/head.jsp" %>
 	<%@ include file="../util/menu_search.jsp" %>
 	
-	<form action="${pageContext.request.contextPath}/AddCarServlet" method="post">
-		Java Web编程 <br/>
-		<input type="text" name="id" value="1"/>
-		<input type="submit" value="购买"/>
-	</form>
+	<%
+		ProductDao productDao = new ProductDao();
+		List<Product> products = productDao.getAllProdut();
+	%>
+	
+	<c:forEach var="product" items="<%= products %>">
+		商品id:${product.id} <br/>
+		商品名:${product.name} <br/>
+		价&nbsp;格:${product.price} <br/>
+		种&nbsp;类:${product.category} <br/>
+		库&nbsp;存:${product.num} <br/>
+		图片url:${product.imgurl} <br/>
+		描&nbsp;述:${product.description} <br/>
+		<a href="${pageContext.request.contextPath}/AddCarServlet?id=${product.id}">加入购物车</a>
+		<hr/>
+	</c:forEach>
 </body>
 </html>
