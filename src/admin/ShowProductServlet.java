@@ -27,12 +27,7 @@ public class ShowProductServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductDao productDao = new ProductDao();
 		List<Product> products = productDao.getAllProdut();
-		if (products == null) {
-			System.out.println("null");
-		}
-		else {
-			System.out.println("not null");
-		}
+		
 		request.setAttribute("products", products);
 		request.getRequestDispatcher("/admin/show_production.jsp").forward(request, response);
 	}

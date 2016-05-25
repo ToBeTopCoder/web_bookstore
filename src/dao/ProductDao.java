@@ -26,7 +26,7 @@ public class ProductDao {
 		try {
 			Connection connection = DataSourceUtils.getConnection();
 			String sql = "INSERT products (name, price, category, num, imgurl, description)"
-					+ "(?, ?, ?, ?, ?, ?)";
+					+ "value(?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, product.getName());
@@ -174,7 +174,7 @@ public class ProductDao {
 
 			lists = new ArrayList<Product>();
 			ResultSet resultSet = statement.executeQuery(sql);
-			if (resultSet.next()) {
+			while (resultSet.next()) {
 				Product product = new Product();
 				product.setId(resultSet.getInt("id"));
 				product.setName(resultSet.getString("name"));
