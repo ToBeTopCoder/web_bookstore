@@ -3,6 +3,11 @@
 	text-align: right;
 	background-color: #C7DDEF;
 }
+#head_img {
+	float: left;
+	width: 51px;
+	height: 32px;
+}
 #admin_head {
 	text-align: center;
 	background-color: #C7DDEF;
